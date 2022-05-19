@@ -30,7 +30,7 @@ Future<void> main() async {
     print('${record.level.name}: ${record.time}: ${record.loggerName}: ${record.message}');
   });
 
-  _log.severe('V0.10');
+  _log.info('V0.11');
 
   final String leafUser = envVars['LEAF_USERNAME'];
   final String leafPassword = envVars['LEAF_PASSWORD'];
@@ -220,6 +220,15 @@ void subscribeToCommands(MqttClientWrapper mqttClient, String vin) {
         default:
       }
     });
+
+  subscribe('command/cockpitStatus', (String payload) {
+    switch (payload) {
+      case 'update':
+          fetchAndPublishCockpitStatus(mqttClient, vin);
+        break;
+      default:
+    }
+  });
 }
 
 Future<void> fetchAndPublishDailyStats(MqttClientWrapper mqttClient, String vin, DateTime targetDay) {
@@ -260,13 +269,16 @@ Future<void> fetchAndPublishCockpitStatus(MqttClientWrapper mqttClient, String v
 
 Future<void> fetchAndPublishAllStatus(MqttClientWrapper mqttClient, String vin) {
   _log.finer('fetchAndPublishAllStatus for $vin');
+  final DateTime dateForStats = DateTime.now();
   return Future.wait(<Future<void>> [
     Future<void>(() => mqttClient.publishStates(
       _session.executeSync((Vehicle vehicle) => vehicle.getVehicleStatus(), vin))),
     fetchAndPublishBatteryStatus(mqttClient, vin),
     fetchAndPublishClimateStatus(mqttClient, vin),
     fetchAndPublishLocation(mqttClient, vin),
-    fetchAndPublishCockpitStatus(mqttClient, vin)
+    fetchAndPublishCockpitStatus(mqttClient, vin),
+    fetchAndPublishDailyStats(mqttClient, vin, dateForStats),
+    fetchAndPublishMonthlyStats(mqttClient, vin, dateForStats)
   ]);
 }
 

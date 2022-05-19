@@ -3,6 +3,7 @@ import 'package:dartnissanconnect/src/nissanconnect_hvac.dart';
 
 import 'builder/leaf_battery_builder.dart';
 import 'builder/leaf_climate_builder.dart';
+import 'builder/leaf_cockpitstatus_builder.dart';
 import 'builder/leaf_location_builder.dart';
 import 'builder/leaf_cockpitstatus_builder.dart';
 import 'builder/leaf_stats_builder.dart';
@@ -43,7 +44,7 @@ class NissanConnectVehicleWrapper extends VehicleInternal {
 
   @override
   Future<Map<String, String>> fetchDailyStatistics(DateTime targetDate) async =>
-    fetchStatistics(TimeRange.Daily, await _getVehicle().requestDailyStatistics());
+    fetchStatistics(TimeRange.Daily, await _getVehicle().requestDailyStatistics(targetDate));
 
   @override
   Future<Map<String, String>> fetchMonthlyStatistics(DateTime targetDate) async =>

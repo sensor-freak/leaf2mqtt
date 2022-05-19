@@ -56,17 +56,17 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: e6ef1b1004482f59ea0d08f7bee8cdf1e2fc3cd5
+      ref: dev
+      resolved-ref: ab5621c17b4b7da5338b2ea1b5afad3aca2645be
       url: "https://gitlab.com/sensor-freak/dartnissanconnect"
     source: git
-    version: "1.0.0"
+    version: "1.0.2"
   dartnissanconnectna:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: a79b3f8e03de54dbfd10a8a3b50826bccb4b400c
+      resolved-ref: "45f5557057d3aa829b58647e87bc43cec9793d3f"
       url: "https://gitlab.com/tobiaswkjeldsen/dartnissanconnectna"
     source: git
     version: "1.0.0"
