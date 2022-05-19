@@ -43,7 +43,7 @@ class NissanConnectVehicleWrapper extends VehicleInternal {
 
   @override
   Future<Map<String, String>> fetchDailyStatistics(DateTime targetDate) async =>
-    fetchStatistics(TimeRange.Daily, await _getVehicle().requestDailyStatistics());
+    fetchStatistics(TimeRange.Daily, await _getVehicle().requestDailyStatistics(targetDate));
 
   @override
   Future<Map<String, String>> fetchMonthlyStatistics(DateTime targetDate) async =>
