@@ -36,6 +36,11 @@ Should work with multiple Leafs, but it is untested. Please open an issue with f
 - [Credits](#credits)
 
 ## Setup
+### Home Assistant add-on
+Click the icon below to add this repository to your Home Assistant instance or follow the procedure highlighted on the [Home Assistant website](https://home-assistant.io/hassio/installing_third_party_addons).
+
+[![Install leaf2mqtt add-on repo.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fyp87%2Fleaf2mqtt)
+
 ### Pre-built images
 You can use pre-built images from here: https://hub.docker.com/r/yp87/leaf2mqtt
 
@@ -185,6 +190,8 @@ In these examples, the `MQTT_BASE_TOPIC` is set to the default (`leaf`).
 | Topic  | Type | Description |
 | ------ | ---- | ----------- |
 | leaf/{vin}/cockpitStatus/totalMileage | Double | The total mileage from the vehicle. The unit (km or miles) depends on the regional area. |
+| leaf/{vin}/cockpitStatus/lastReceivedDateTimeUtc | Iso8601 UTC | The datetime when leaf2mqtt received the last cockpit status values |
+| leaf/{vin}/cockpitStatus/json | String | A json representation of all cockpit status |
 
 #### Commands
 | Topic | Payload | Description |
