@@ -11,9 +11,9 @@ You must have a working MQTT broker on your LAN.
 Should work with multiple Leafs, but it is untested. Please open an issue with feedback if possible.
 
 - [Setup](#setup)
-  * [Pre-built images](#pre-built-images-)
-  * [Building the image](#building-the-image-)
-  * [Running the image](#running-the-image-)
+  * [Pre-built images](#pre-built-images)
+  * [Building the image](#building-the-image)
+  * [Running the image](#running-the-image)
 - [Status and Commands](#status-and-commands)
   * [General](#general)
     + [Status](#status)
@@ -30,6 +30,9 @@ Should work with multiple Leafs, but it is untested. Please open an issue with f
   * [Location](#location)
     + [Status](#status-4)
     + [Commands](#commands-4)
+  + [Cockpit Status](#cockpit-status)
+    + [Status](#status-5)
+    + [Commands](#commands-5)
 - [Home Assistant Integration](#home-assistant-integration)
   * [Sensor examples](#sensor-examples)
   * [Recommended Battery Status Update Script](#recommended-battery-status-update-script)
@@ -113,9 +116,9 @@ In these examples, the `MQTT_BASE_TOPIC` is set to the default (`leaf`).
 | leaf/{vin}/battery/cruisingRangeAcOffMiles | Integer | Range left with climate off in miles as estimated by the Leaf |
 | leaf/{vin}/battery/cruisingRangeAcOnKm | Integer | Range left with climate on in kilometers as estimated by the Leaf |
 | leaf/{vin}/battery/cruisingRangeAcOnMiles | Integer | Range left with climate on in miles as estimated by the Leaf |
-| leaf/{vin}/battery/timeToFullTrickleInMinutes | Integer | The reported time in minutes to fully charge when trickling (~1kw) |
-| leaf/{vin}/battery/timeToFullL2InMinutes | Integer | The reported time in minutes to fully charge when charging in half speed L2 (~3kw) |
-| leaf/{vin}/battery/timeToFullL2_6kwInMinutes | Integer | The reported time in minutes to fully charge when charging in full speed L2 (~6kw) |
+| leaf/{vin}/battery/timeToFullTrickleInMinutes | String | The reported time (H:MM:SS.mmmmmm) to fully charge when trickling (~1kw) |
+| leaf/{vin}/battery/timeToFullL2InMinutes | String | The reported time (H:MM:SS.mmmmmm) to fully charge when charging in half speed L2 (~3kw) |
+| leaf/{vin}/battery/timeToFullL2_6kwInMinutes | String | The reported time (H:MM:SS.mmmmmm) to fully charge when charging in full speed L2 (~6kw) |
 | leaf/{vin}/battery/lastUpdatedDateTimeUtc | Iso8601 UTC | The datetime when the last battery values were updated |
 | leaf/{vin}/battery/lastReceivedDateTimeUtc | Iso8601 UTC | The datetime when leaf2mqtt received the last battery values |
 | leaf/{vin}/battery/json | String | A json representation of all battery status |
@@ -204,25 +207,23 @@ In these examples, the `MQTT_BASE_TOPIC` is set to the default (`leaf`).
 
 ## Home Assistant Integration
 ### Sensor examples
-    sensors:
-      - platform: mqtt
-        name: leaf_battery_level
-        # Since VIN is not specified, it will represent the state from the first vehicle in the account.
-        state_topic: "leaf/battery/percentage"
-        unit_of_measurement: "%"
-        device_class: battery
+    mqtt:
+      sensor:
+        - name: leaf_battery_level
+          # Since VIN is not specified, it will represent the state from the first vehicle in the account.
+          state_topic: "leaf/battery/percentage"
+          unit_of_measurement: "%"
+          device_class: battery
 
-      - platform: mqtt
-        name: leaf_battery_last_updated
-        # Since VIN is not specified, it will represent the state from the first Leaf in the account.
-        state_topic: "leaf/battery/lastUpdatedDateTimeUtc"
-        device_class: timestamp
+        - name: leaf_battery_last_updated
+          # Since VIN is not specified, it will represent the state from the first Leaf in the account.
+          state_topic: "leaf/battery/lastUpdatedDateTimeUtc"
+          device_class: timestamp
 
-      - platform: mqtt
-        name: leaf_battery_last_received
-        # You can specify the vin if you prefer or if you have more than one Leaf.
-        state_topic: "leaf/XXXXXSOMEXVINXXXXX/battery/lastReceivedDateTimeUtc"
-        device_class: timestamp
+        - name: leaf_battery_last_received
+          # You can specify the vin if you prefer or if you have more than one Leaf.
+          state_topic: "leaf/XXXXXSOMEXVINXXXXX/battery/lastReceivedDateTimeUtc"
+          device_class: timestamp
 
 ### Recommended Battery Status Update Script
 In Home Assistant, calling a script like this `- service: script.some_script_name` within another script or automation will actually stop the execution of the calling script until `script.some_script_name` terminates, unlike using `script.turn_on`. Knowing this, you can ensure you have the latest state for your leaf before continuing an automation using a script like this:
