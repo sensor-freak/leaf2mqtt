@@ -5,7 +5,6 @@ import 'builder/leaf_battery_builder.dart';
 import 'builder/leaf_climate_builder.dart';
 import 'builder/leaf_cockpitstatus_builder.dart';
 import 'builder/leaf_location_builder.dart';
-import 'builder/leaf_cockpitstatus_builder.dart';
 import 'builder/leaf_stats_builder.dart';
 import 'leaf_session.dart';
 import 'leaf_vehicle.dart';
@@ -126,10 +125,9 @@ class NissanConnectVehicleWrapper extends VehicleInternal {
 
   @override
   Future<Map<String, String>> fetchCockpitStatus() async {
-    //final NissanConnectCockpitStatus cockpitStatus = await _getVehicle().requestCockpitStatus();
+    final NissanConnectCockpitStatus cockpitStatus = await _getVehicle().requestCockpitStatus();
     return saveAndPrependVin(CockpitStatusInfoBuilder()
-      //.withTotalMileage(cockpitStatus.totalMileage)
-      .withTotalMileage(0)
+      .withTotalMileage(cockpitStatus.totalMileage)
       .build());
   }
 }
