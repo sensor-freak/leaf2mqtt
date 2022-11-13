@@ -49,7 +49,7 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: dev
+      ref: HEAD
       resolved-ref: a54210c2b8733db038542a219e20c0a8f35da1aa
       url: "https://gitlab.com/sensor-freak/dartnissanconnect"
     source: git
