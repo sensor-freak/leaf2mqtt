@@ -6,6 +6,7 @@ dependencies:
     git: https://gitlab.com/tobiaswkjeldsen/dartnissanconnectna
   dartnissanconnect:
     git: https://gitlab.com/sensor-freak/dartnissanconnect
+    ref: dev
   dartcarwings:
     git: https://github.com/Tobiaswk/dartcarwings
   mqtt_client: ^9.6.1
