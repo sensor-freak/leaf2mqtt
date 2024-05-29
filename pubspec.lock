@@ -41,7 +41,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: f54dc13e1910d4e87db6555aef0398cc5e41903c
+      resolved-ref: "3c50546351f5d02cb3b3c1e0d84f3a70fe7c614e"
       url: "https://github.com/Tobiaswk/dartcarwings"
     source: git
     version: "1.0.0"
@@ -49,11 +49,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: ed31b5a3ee6d472aea2a1fb97dbbcf8e90ef04c7
+      ref: dev
+      resolved-ref: be2d73f293162cada0c702ed915ab77810f48dac
       url: "https://gitlab.com/sensor-freak/dartnissanconnect"
     source: git
-    version: "1.0.4"
+    version: "1.0.6"
   dartnissanconnectna:
     dependency: "direct main"
     description:
@@ -104,21 +104,21 @@ packages:
       name: meta
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.0"
+    version: "1.15.0"
   mqtt_client:
     dependency: "direct main"
     description:
       name: mqtt_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "9.7.2"
+    version: "9.8.1"
   path:
     dependency: transitive
     description:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.2"
+    version: "1.8.3"
   source_span:
     dependency: transitive
     description:
